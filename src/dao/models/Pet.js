@@ -21,7 +21,10 @@ const schema = new mongoose.Schema({
         ref:'Users'
     },
     image:String
-})
+},{
+    timestamps : true,
+    versionKey : false,
+});
 
 const petModel = mongoose.model(collection,schema);
 

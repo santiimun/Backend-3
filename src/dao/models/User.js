@@ -35,7 +35,10 @@ const schema = new mongoose.Schema({
         ],
         default:[]
     }
-})
+},{
+    timestamps : true,
+    versionKey : false,
+});
 
 const userModel = mongoose.model(collection,schema);
 
