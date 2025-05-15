@@ -1,0 +1,113 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+        - Users
+      responses:
+        '200':
+          description: La operacion fue exitosa!, se retorna un arreglo de los usuarios
+          content:
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        '500':
+          description: Error inesperado en el servidor, no se pudo manejar el proceso.
+
+  /api/users/{uid}:
+    get:
+      summary: Obtener un usuario por ID
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        '404':
+          description: Usuario no encontrado
+
+    put:
+      summary: Actualiza un usuario existente
+      tags: [Users]
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: ID del usuario a actualizar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              email: juan@example.com
+              password: mipasswordsegura
+      responses:
+        200:
+          description: Usuario actualizado exitosamente
+        404:
+          description: Usuario no encontrado
+        500:
+          description: Error del servidor
+
+    delete:
+      summary: Eliminar un usuario por ID
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario eliminado
+
+
+components:
+    schemas:
+      User:
+        type: object
+        properties:
+          id:
+            type: string
+            description: ID auto-generado del usuario
+          first_name:
+            type: string
+            description: Nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Correo electrónico del usuario
+          password:
+            type: string
+            description: Contraseña del usuario (hash)
+          role:
+            type: string
+            description: Rol del usuario (por ejemplo, 'user' o 'admin')
+          pets:
+            type: array
+            items:
+              type: string
+            description: IDs de las mascotas asociadas al usuario

@@ -1,7 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import "dotenv/config"
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUIExpress from 'swagger-ui-express';
+import "dotenv/config";
 
 import usersRouter from './routes/users.router.js';
 import petsRouter from './routes/pets.router.js';
@@ -22,6 +24,21 @@ mongoose.connect(process.env.MONGO_DB_URL)
     .catch((error) => {
         console.error("Error al conectar a MongoDB:", error);
     });
+
+const swaggerOptions= {
+    definition: {
+        openapi: "3.0.1",
+        info: {
+            title: "Documentacion API Adoptme",
+            description: "Documentacion para uso de swagger"
+        }
+    },
+    apis: ['./src/docs/**/*.yaml']
+};
+
+const specs = swaggerJSDoc(swaggerOptions);
+
+app.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs));
 
 app.use(express.json());
 app.use(cookieParser());
