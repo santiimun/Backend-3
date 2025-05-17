@@ -14,7 +14,6 @@ import mocksRouter from "./routes/mocks.router.js"
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const connection = mongoose.connect(process.env.MONGO_DB_URL)
 
 mongoose.connect(process.env.MONGO_DB_URL)
     .then(() => {
