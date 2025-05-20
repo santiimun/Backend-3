@@ -6,8 +6,10 @@
 
 ## 📦 Imagen Docker
 
-La imagen Docker está publicada en Docker Hub:
+La imagen Docker está publicada en Docker Hub: https://hub.docker.com/r/santimun/entrega-final-bk3-munoz
 
+
+### Comandos para ejecutar el proyecto con Docker
 ```bash
 docker pull santimun/entrega-final-bk3-munoz:1.0.0
 docker run --rm -p 8080:8080 santimun/entrega-final-bk3-munoz:1.0.0
