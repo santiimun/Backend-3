@@ -1,7 +1,12 @@
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
-import userModel from "../dao/models/User.js";
-import petModel from "../dao/models/Pet.js";
+import Pet from "../dao/Pets.dao.js";
+import Users from "../dao/Users.dao.js";
+import UserRepository from "../repository/UserRepository.js";
+import PetRepository from "../repository/PetRepository.js";
+
+const userRepository = new UserRepository(new Users());
+const petRepository = new PetRepository(new Pet());
 
 class MocksService {
 
@@ -42,10 +47,10 @@ class MocksService {
 
     generateData = async ({ users = 0, pets = 0 }) => {
         const mockUsers = this.generateMockUsers(users);
-        const insertedUsers = await userModel.insertMany(mockUsers);
+        const insertedUsers = await userRepository.insertMany(mockUsers);
     
         const mockPets = this.generateMockPets(pets);
-        const insertedPets = await petModel.insertMany(mockPets);
+        const insertedPets = await petRepository.insertMany(mockPets);
     
         return {
             usersInserted: insertedUsers.length,
@@ -54,4 +59,4 @@ class MocksService {
     };
 }
 
-export const mocksSercive = new MocksService();
+export const mocksService = new MocksService();
